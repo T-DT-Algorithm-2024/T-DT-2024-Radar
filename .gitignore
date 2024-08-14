@@ -1,0 +1,6 @@
+build/
+log/
+install/
+.cache/
+
+config/merged_bag/*
