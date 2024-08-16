@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>rosbag_player</name>
+  <version>0.0.0</version>
+  <description>ros bag toolkit</description>
+  <maintainer email="xun_001@outlook.com">tdt</maintainer>
+  <license>TODO: License declaration</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+  <depend>rclcpp</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_sensor_msgs</depend>
+  <depend>rosbag2_cpp</depend>
+  <depend>rosbag2_storage</depend>
+  <depend>rosidl_generator_traits</depend>
+  <depend>rosidl_typesupport_cpp</depend>
+  <depend>rclcpp_components</depend>
+  <depend>OpenCV</depend>
+    <depend>cv_bridge</depend>
+    <depend>image_transport</depend>
+    <depend>sensor_msgs</depend>
+    <depend>std_msgs</depend>
+    <depend>PCL</depend>
+    <depend>pcl_conversions</depend>
+    <depend>vision_interface</depend>
+
+  
+  <build_depend>rosidl_default_generators</build_depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  
+
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

@@ -1,0 +1,121 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "ROS2:GDB调试",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/.vscode/start_program",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerServerAddress": "localhost:3038",
+      "preLaunchTask": "RunGDBServer",
+      "setupCommands": [
+        {
+          "description": "为 gdb 启用整齐打印",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "将反汇编风格设置为 Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ]
+    },
+    {
+      "name": "ROS2:LLDB调试",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/.vscode/start_program",
+      "args": [],
+      "stopOnEntry": false,
+      "cwd": "${workspaceFolder}",
+      "initCommands": [
+        "platform select remote-linux",
+        "platform connect connect://127.0.0.1:3039",
+        "settings set target.inherit-env false"
+      ],
+      "preLaunchTask": "RunLLDBDBServer"
+    },
+    {
+      "name": "ROS2:Launch启动",
+      "type": "ros",
+      "request": "launch",
+      "target": "${workspaceFolder}/install/${input:run_package}/share/${input:run_package}/launch/${input:launch_file}",
+      "launch": [
+        "rviz",
+        "gz",
+        "gzserver",
+        "gzclient"
+      ]
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": false,
+      "cwd": "/home/tdt/git/new_vision/src/tdt_vision/src/camera",
+      "program": "/home/tdt/git/new_vision/src/tdt_vision/src/camera/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "launch_file",
+      "type": "command",
+      "command": "shellCommand.execute",
+      "args": {
+        "command": "ls ./install/${input:run_package}/share/${input:run_package}/launch | grep '.py'",
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "WORKSPACE": "${workspaceFolder[0]}",
+          "FILE": "${file}",
+          "PROJECT": "${workspaceFolderBasename}"
+        }
+      }
+    },
+    {
+      "id": "run_package_node",
+      "type": "command",
+      "command": "shellCommand.execute",
+      "args": {
+        "command": "ls ./install/${input:run_package}/lib/${input:run_package}/",
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "WORKSPACE": "${workspaceFolder[0]}",
+          "FILE": "${file}",
+          "PROJECT": "${workspaceFolderBasename}"
+        }
+      }
+    },
+    {
+      "id": "run_package",
+      "type": "command",
+      "command": "shellCommand.execute",
+      "args": {
+        "command": "ls -F ./install| grep \"/$\" | sed -e 's/\\///g'",
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "WORKSPACE": "${workspaceFolder[0]}",
+          "FILE": "${file}",
+          "PROJECT": "${workspaceFolderBasename}"
+        }
+      }
+    }
+  ]
+}

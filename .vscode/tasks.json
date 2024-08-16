@@ -1,0 +1,353 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "ROS2:清理",
+            "command": "rm",
+            "args": [
+                "-rf",
+                "build",
+                "install"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "detail": "清理ROS2编译临时文件"
+        },
+        {
+            "type": "shell",
+            "label": "CleanCompileCommandsJson",
+            "command": "rm",
+            "args": [
+                "-f",
+                "build/compile_commands.json",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "hide": true,
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+            "detail": "清理编译时生成的compile_commands.json以便重新生成"
+        },
+        {
+            "type": "cppbuild",
+            "label": "ROS2:编译整个项目",
+            "command": "colcon",
+            "args": [
+                "build",
+                "--symlink-install",
+                "--cmake-args",
+                "-DCMAKE_BUILD_TYPE=${input:BuildType}",
+                "-DCMAKE_EXPORT_COMPILE_COMMANDS=1"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "编译ROS2项目",
+            "dependsOn": "CleanCompileCommandsJson"
+        },
+        {
+            "type": "shell",
+            "label": "ROS2:运行节点",
+            "command": "/bin/bash",
+            "args": [
+                "${workspaceFolder}/.vscode/run.sh",
+                "${input:run_package}",
+                "${input:run_package_node}",
+                "${input:launch_option}"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true,
+            },
+            "detail": "不调试运行ROS2节点",
+            "dependsOn": "ROS2:编译整个项目",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+        {
+            "type": "shell",
+            "label": "RunGDBServer",
+            "command": "/bin/bash",
+            "args": [
+                "${workspaceFolder}/.vscode/run_gdb.sh",
+                "${input:run_package}",
+                "${input:run_package_node}",
+                "${input:launch_option}"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": false,
+            },
+            "hide": true,
+            "detail": "用于调试运行ROS2节点",
+            "dependsOn": "CreateProgramQuickShot",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+        {
+            "type": "shell",
+            "label": "RunLLDBDBServer",
+            "command": "/bin/bash",
+            "args": [
+                "${workspaceFolder}/.vscode/run_lldb.sh",
+                "${input:run_package}",
+                "${input:run_package_node}",
+                "${input:launch_option}"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": false,
+            },
+            "hide": true,
+            "detail": "用于调试运行ROS2节点",
+            "dependsOn": "CreateProgramQuickShot",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+        {
+            "type": "cppbuild",
+            "label": "ROS2:编译单个package",
+            "command": "colcon",
+            "args": [
+                "build",
+                "--symlink-install",
+                "--cmake-args",
+                "-DCMAKE_BUILD_TYPE=${input:BuildType}",
+                "-DCMAKE_EXPORT_COMPILE_COMMANDS=1",
+                "--packages-select",
+                "${input:build_package}"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "编译ROS2单个package",
+        },
+        {
+            "type": "cppbuild",
+            "label": "ROS2:清理并编译整个项目",
+            "command": "colcon",
+            "args": [
+                "build",
+                "--symlink-install",
+                "--cmake-args",
+                "-DCMAKE_BUILD_TYPE=${input:BuildType}",
+                "-DCMAKE_EXPORT_COMPILE_COMMANDS=1"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "清理并编译ROS2项目",
+            "dependsOn": "ROS2:清理"
+        },
+        {
+            "type": "cppbuild",
+            "label": "ROS2:清理并编译单个package",
+            "command": "colcon",
+            "args": [
+                "build",
+                "--symlink-install",
+                "--cmake-args",
+                "-DCMAKE_BUILD_TYPE=${input:BuildType}",
+                "-DCMAKE_EXPORT_COMPILE_COMMANDS=1",
+                "--packages-select",
+                "${input:build_package}"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "清理并编译ROS2单个package",
+            "dependsOn": "ROS2:清理"
+        },
+        {
+            "type": "shell",
+            "label": "CreateProgramQuickShot",
+            "command": "ln",
+            "args": [
+                "-sf",
+                "${workspaceFolder}/install/${input:run_package}/lib/${input:run_package}/${input:run_package_node}",
+                "${workspaceFolder}/.vscode/start_program"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+            "hide": true,
+            "detail": "创建Run程序快捷方式",
+            "dependsOn": "ROS2:编译整个项目"
+        },
+        {
+            "type": "shell",
+            "label": "ROS2:运行launch文件",
+            "command": "/bin/bash",
+            "args": [
+                "${workspaceFolder}/.vscode/launch.sh",
+                "${input:run_package}",
+                "${input:launch_file}",
+                "${input:launch_option}"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "detail": "不调试运行ROS2 launch文件",
+            "dependsOn": "ROS2:编译整个项目",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+    ],
+    "inputs": [
+        {
+            "id": "BuildType",
+            "type": "pickString",
+            "description": "What CMAKE_BUUILD_TYPE to use",
+            "options": [
+                "Debug",
+                "Release",
+                "RelWithDebInfo",
+                "MinSizeRel"
+            ],
+            "default": "Debug",
+        },
+        {
+            "id": "run_package_node",
+            "type": "command",
+            "command": "shellCommand.execute",
+            "args": {
+                "command": "ls ./install/${input:run_package}/lib/${input:run_package}/",
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "WORKSPACE": "${workspaceFolder[0]}",
+                    "FILE": "${file}",
+                    "PROJECT": "${workspaceFolderBasename}"
+                }
+            }
+        },
+        {
+            "id": "launch_file",
+            "type": "command",
+            "command": "shellCommand.execute",
+            "args": {
+                "command": "ls ./install/${input:run_package}/share/${input:run_package}/launch | grep '.py'",
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "WORKSPACE": "${workspaceFolder[0]}",
+                    "FILE": "${file}",
+                    "PROJECT": "${workspaceFolderBasename}"
+                }
+            }
+        },
+        {
+            "id": "run_package",
+            "type": "command",
+            "command": "shellCommand.execute",
+            "args": {
+                "command": "ls -F ./install| grep \"/$\" | sed -e 's/\\///g'",
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "WORKSPACE": "${workspaceFolder[0]}",
+                    "FILE": "${file}",
+                    "PROJECT": "${workspaceFolderBasename}"
+                }
+            }
+        },
+        {
+            "id": "build_package",
+            "type": "command",
+            "command": "shellCommand.execute",
+            "args": {
+                "command": "ls -F ./src| grep \"/$\" | sed -e 's/\\///g'",
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "WORKSPACE": "${workspaceFolder[0]}",
+                    "FILE": "${file}",
+                    "PROJECT": "${workspaceFolderBasename}"
+                }
+            }
+        },
+        {
+            "id": "launch_option",
+            "type": "promptString",
+            "description": "Launch option",
+            "default": ""
+        }
+    ],
+    "version": "2.0.0"
+}
