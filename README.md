@@ -152,4 +152,9 @@ ros2 launch livox_ros2_driver livox_lidar_launch.py #启动Livox驱动
 [百度网盘](https://pan.baidu.com/s/1ogRvs3v1OMCVUbAlUsOGQA?pwd=52rm)
 
 修改tdt_vision/launch对应的launch文件中的rosbag路径即可进程内播放对应的rosbag
+
+# 联系方式
+Email: shenxuewen0127@gmail.com
+
+QQ: 2738226430
 </div>
