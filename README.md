@@ -8,8 +8,8 @@
 <a href="https://neutdt.cn"><img alt="License" src="https://img.shields.io/badge/Home%20Page-T--DT-green"></a>
 
 <p align="center">
-  <img src=".github/NEU.jpg" width="300"/>
-  
+  <!-- <img src=".github/NEU.jpg" width="300"/> -->
+
   <img src=".github/T-DT.jpg" width="300"/>
 </p>
 
