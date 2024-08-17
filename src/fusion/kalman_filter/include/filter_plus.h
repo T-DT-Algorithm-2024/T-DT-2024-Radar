@@ -193,7 +193,7 @@ public:
 
         
         if(Distance(match_point, input) < detect_r){
-            std::cout<<"match success"<<std::endl;
+            // std::cout<<"match success"<<std::endl;
             detect_history.push_back(std::make_pair(color, number));
             if(detect_history.size() > max_history){
                 detect_history.erase(detect_history.begin());

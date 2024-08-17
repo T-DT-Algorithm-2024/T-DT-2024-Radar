@@ -206,43 +206,6 @@ namespace tdt_radar {
                 }
             }
             radar2sentry_pub->publish(radar2sentry);
-            // auto clone_map = map.clone();
-            // for (int i=0;i<6;i++){
-            //     int number = i+1;
-            //     if(number==6)number++;
-            //     cv::Point2f blue_point(msg->blue_x[i], msg->blue_y[i]);
-            //     if(blue_point.x*blue_point.y){
-            //         cv::circle(clone_map,cv::Point((clone_map.cols*blue_point.x)/28,clone_map.rows*(15-blue_point.y)/15),10,cv::Scalar(200,0,0),-1);
-            //         cv::putText(clone_map,std::to_string(number),cv::Point((clone_map.cols*blue_point.x)/28-6,clone_map.rows*(15-blue_point.y)/15+5),cv::FONT_HERSHEY_SIMPLEX,0.5,cv::Scalar(255,255,255));
-            //     }
-            //     cv::Point2f red_point(msg->red_x[i], msg->red_y[i]);
-            //     if(red_point.x*red_point.y){
-            //         cv::circle(clone_map,cv::Point((clone_map.cols*red_point.x)/28,clone_map.rows*(15-red_point.y)/15),10,cv::Scalar(0,0,200),-1);
-            //         cv::putText(clone_map,std::to_string(number),cv::Point((clone_map.cols*red_point.x)/28-6,clone_map.rows*(15-red_point.y)/15+5),cv::FONT_HERSHEY_SIMPLEX,0.5,cv::Scalar(255,255,255));
-            //     }
-            // }
-            // auto send_image = cv_bridge::CvImage(std_msgs::msg::Header(), "bgr8", clone_map).toImageMsg();
-            // debug_map_pub->publish(*send_image);
-            // count++;
-            // if(count==20){
-            // // time_t now = time(0);
-            // // tm *ltm = localtime(&now);
-            // // std::string filename=std::to_string(ltm->tm_year+1900)+"_"+
-            // // std::to_string(ltm->tm_mon+1)+"_"+
-            // // std::to_string(ltm->tm_mday)+"_"+
-            // // std::to_string(ltm->tm_hour)+"_"+
-            // // std::to_string(ltm->tm_min)+"_"+
-            // // std::to_string(ltm->tm_sec);
-            // // std::ofstream out("/home/tdt/Label/big/test1/"+filename+".txt");
-            // // out<<match_info.match_time<<std::endl;
-            // // out<<(uint16_t)match_info.self_color<<std::endl;
-            // // for(int i=0;i<16;i++){
-            // //   out<<(uint16_t)match_info.robot_hp[i]<<" ";
-            // // }
-            // // out.close();   
-            // // cv::imwrite("/home/tdt/Label/big/test1"+filename +".png", clone_map);
-            // count = 0;
-            // }
         }
         rclcpp::Subscription<vision_interface::msg::DetectResult>::SharedPtr detect_result_sub;
         rclcpp::Subscription<vision_interface::msg::DetectResult>::SharedPtr camera_detect_sub;

@@ -135,7 +135,7 @@ void KalmanFilter::callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
     {
         if((KFs[i].last_time) > 1.5){
             KFs.erase(KFs.begin() + i);
-            std::cout<<"delete kf"<<std::endl;
+            // std::cout<<"delete kf"<<std::endl;
         }
         else
         {

@@ -195,6 +195,7 @@ void DynamicCloud::callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
             ((11<point.y&&point.y<12.25)&&(23<point.x&&point.x<24.1)&&(point.z<0.535))||
             (point.x>28-2.0234&&point.x<28-1.0234)&&(point.y > 10.955+0.1 && point.y < 10.955 + 1.6 - 0.1)&&(point.z>0.4&&point.z<1.5)||
             little_engine_filter(point)
+            ///TODO: 此处代码混乱，需要重构，全部替换成Lambda表达式的过滤器形式
         )
         {
             // 如果在飞镖识别范围内：x(28-0.5889-0.1885,28-0.5889) y(3.925,4.525),z(2.7422-0.859,2.7422)
@@ -214,6 +215,8 @@ void DynamicCloud::callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
     // std::cout << "filter time: " << std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now()-ta).count()/1000.0 << std::endl;
     pcl::PointCloud<pcl::PointXYZ> dynamic_pointcloud;
     GetDynamicCloud(filtered_cloud,dynamic_pointcloud,0.1,12);
+    ///TODO: 点云积分的代码比较重复，需要重构成一个class，维护那些积分的点云
+
     if(accumulate_count<accumulate_time){
         accumulated_clouds_.push_back(dynamic_pointcloud.makeShared());
         other_accumulated_clouds_.push_back(other_filtered_cloud.makeShared());
