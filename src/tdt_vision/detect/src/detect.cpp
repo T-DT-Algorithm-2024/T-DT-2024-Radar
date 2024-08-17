@@ -138,10 +138,6 @@ void Detect::callback(const std::shared_ptr<sensor_msgs::msg::Image> msg) {
   std::cout<<msg->header.stamp.sec<<"."<<msg->header.stamp.nanosec<<std::endl;
   std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
   auto img = cv_bridge::toCvShare(msg, "bgr8")->image;
-  cv::Mat fuck;
-  cv::resize(img, fuck, cv::Size(490, 490));
-  auto send_msg = cv_bridge::CvImage(std_msgs::msg::Header(), "bgr8", fuck).toImageMsg();
-  image_pub->publish(*send_msg);
   yolo::Image image(img.data, img.cols, img.rows);
 
   auto result = yolo->forward(image);
