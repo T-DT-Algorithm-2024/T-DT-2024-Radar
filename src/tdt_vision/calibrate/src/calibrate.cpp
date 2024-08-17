@@ -22,17 +22,6 @@ namespace tdt_radar {
         int usechessborad=0;
         fs["usechessborad"] >> usechessborad;
         fs.release();
-        // std::string param_name = "radar";
-        // std::string param_path = "./config/radar_param.jsonc";
-        // LoadParam::InitParam(param_name, param_path);
-        // LoadParam::ReadParam(param_name, "camera_matrix", camera_matrix);
-        // LoadParam::ReadParam(param_name, "dist_coeffs", dist_coeffs);
-        // LoadParam::ReadParam(param_name, "EnemyColor", EnemyColor);
-        // LoadParam::ReadParam(param_name, "usechessborad", usechessborad);
-
-
-        std::cout<<"Calibrate 1"<<std::endl;
-
 
         real_points.push_back(self_R0TL);
         real_points.push_back(self_R0TR);
@@ -41,8 +30,6 @@ namespace tdt_radar {
         real_points.push_back(enemy_Tower);
         parser_ = new parser();
         
-
-        // publish_tf();
         RCLCPP_INFO(this->get_logger(),"\n" 
                                   "      ┏━┓       ┏━┓\n"
                                   "    ┏━┛ ┻━━━━━━━┛ ┻━┓\n"
@@ -63,13 +50,6 @@ namespace tdt_radar {
                                   "        ┗━┓┓┏━━━━━━━┳┓┏┛\n"
                                   "          ┃┫┫       ┃┫┫\n"
                                   "          ┗┻┛       ┗┻┛");
-        // cv::waitKey(100);
-        this->broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
-        transformStamped.header.stamp = this->now();
-        transformStamped.header.frame_id = "rm_frame";
-        transformStamped.child_frame_id = "camera_frame";
-
-        std::cout<<"Calibrate 2"<<std::endl;
 
         if(usechessborad){
         image_sub = this->create_subscription<sensor_msgs::msg::Image>(
@@ -150,6 +130,7 @@ namespace tdt_radar {
         cvimage_ = calib_img;
         if(is_calibrating){
             cv::putText(img, std::to_string(pick_points.size()), cv::Point(50, 200), cv::FONT_HERSHEY_SIMPLEX, 3, cv::Scalar(0, 0, 255), 2);
+            cv::putText(img, "Press 'n' to add good point", cv::Point(50, 400), cv::FONT_HERSHEY_SIMPLEX, 3, cv::Scalar(0, 0, 255), 2);
             if(pick_points.size() == real_points.size()){
             solve();
             parser_->Change_Matrix();
@@ -171,24 +152,6 @@ namespace tdt_radar {
             case 13:
                 is_calibrating = true;
                 break;
-            // case 'w':
-            //     change_outmatrix(0,0,0.01);
-            //     break;
-            // case 'a':
-            //     change_outmatrix(0,0.01,0);
-            //     break;
-            // case 's':
-            //     change_outmatrix(0,0,-0.01);
-            //     break;
-            // case 'd':
-            //     change_outmatrix(0,-0.01,0);
-            //     break;
-            // case 'q':
-            //     change_outmatrix(0.01,0,0);
-            //     break;
-            // case 'e':
-            //     change_outmatrix(-0.01,0,0);
-            //     break;
             default:
                 break;
         }       
@@ -282,29 +245,32 @@ namespace tdt_radar {
         case cv::EVENT_LBUTTONDOWN:
             if (is_calibrating) {
 
-            do {
-                temp_key = cv::waitKey(10);
-                switch (temp_key)
-                {
-                case 'w': y -= 1; break; // 向上移动
-                case 'a': x -= 1; break; // 向左移动
-                case 's': y += 1; break; // 向下移动
-                case 'd': x += 1; break; // 向右移动
-                }
+                do {
+                    temp_key = cv::waitKey(10);
+                    switch (temp_key)
+                    {
+                        case 'w': y -= 1; break; // 向上移动
+                        case 'a': x -= 1; break; // 向左移动
+                        case 's': y += 1; break; // 向下移动
+                        case 'd': x += 1; break; // 向右移动
+                    }
 
-                // 确保x和y在安全区域内
-                x = std::max(50, std::min(x, cvimage_.cols - 50));
-                y = std::max(50, std::min(y, cvimage_.rows - 50));
+                    // 确保x和y在安全区域内
+                    x = std::max(50, std::min(x, cvimage_.cols - 50));
+                    y = std::max(50, std::min(y, cvimage_.rows - 50));
 
-                // 更新ROI和显示
-                cv::Mat roi = cvimage_(cv::Rect(x - 50, y - 50, 100, 100));
-                cv::Mat dst;
-                cv::resize(roi, dst, cv::Size(400, 400));
-                cv::line(dst, cv::Point(200, 100), cv::Point(200, 300), cv::Scalar(0, 0, 255), 1);
-                cv::line(dst, cv::Point(100, 200), cv::Point(300, 200), cv::Scalar(0, 0, 255), 1);
-                cv::imshow("ROI", dst);
+                    // 更新ROI和显示
+                    cv::Mat roi = cvimage_(cv::Rect(x - 50, y - 50, 100, 100));
+                    cv::Mat dst;
+                    cv::resize(roi, dst, cv::Size(400, 400));
+                    cv::line(dst, cv::Point(200, 100), cv::Point(200, 300), cv::Scalar(0, 0, 255), 1);
+                    cv::line(dst, cv::Point(100, 200), cv::Point(300, 200), cv::Scalar(0, 0, 255), 1);
+                    cv::imshow("ROI", dst);
 
-            } while (temp_key != 'n'); // 按'n'退出循环
+                } 
+                while (temp_key != 'n'); // 按'n'退出循环
+
+
                 x *= 1.3333333333 * 2;
                 y *= 1.3333333333 * 2;
                 std::cout << "x:" << x << " y:" << y << std::endl;
