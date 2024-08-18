@@ -182,6 +182,14 @@ ros2 launch livox_ros2_driver livox_lidar_launch.py #启动Livox驱动
 [百度网盘](https://pan.baidu.com/s/1ogRvs3v1OMCVUbAlUsOGQA?pwd=52rm)
 
 修改tdt_vision/launch对应的launch文件中的rosbag路径即可进程内播放对应的rosbag
+### 相机外参标定
+```bash
+ros2 run tdt_vision calib_rosbag.launch.py
+```
+按Enter键开始标定,依次点击R0/B0左上，右上，己方前哨站血条最高点(满血)，敌方基地引导灯，敌方前哨站引导灯。
+
+
+每次点击后可使用wasd调节上下左右，按n键保存当前点，保存5个点后自动计算外参并保存在config/out_matrix.yaml
 ## 可视化
 Launch文件已集成foxglove-bridge,启动后直接打开foxglove-studio即可查看
 ## TODO
