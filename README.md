@@ -37,7 +37,7 @@
 **如果你没有激光雷达，也可以直接使用本项目的单目相机方案 (在RM2023的0.6m误差规则下取得了最高91%的准确率，荣获2023年雷达MVP)**
 
 <p align="center">
-  <img src=".github/icp.jpg" alt="配准效果">
+  <img src=".github/icp.png" alt="配准效果">
   <br>
   <em>图1：配准效果</em>
 </p>

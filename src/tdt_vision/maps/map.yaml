@@ -1,6 +1,6 @@
 image: ../../../config/RM2024.png    # 地图图像文件的路径
 mode: raw               # 地图图像的模式，scale表示地图图像的分辨率与yaml文件中的分辨率一致，raw表示地图图像的分辨率与yaml文件中的分辨率不一致
-resolution: 0.005     # 每个像素代表0.1米
+resolution: 0.0151    # 每个像素代表0.0151米
 origin: [0.0, 0.0, 0.0]  # 地图原点在世界坐标系中的位置
 occupied_thresh: 0.65    # 被认为是障碍物的像素阈值
 free_thresh: 0.196       # 被认为是自由空间的像素阈值
