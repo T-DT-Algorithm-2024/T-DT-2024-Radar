@@ -109,16 +109,16 @@
 | [~~`llm_decision`~~](./src/llm_decision/) | ~~大模型决策模块~~ |
 | [`livox_driver`](./src/livox_driver/) | Livox驱动 |
 | [`fusion`](./src/fusion/) | 传感器后融合模块 |
-| [`utils`](./src/工具包/) | 视觉模块 |
+| [`utils`](./src/utils/) | 工具包 |
 
 ## 依赖
 
 ```bash
 Ubuntu 22.04
 ROS2 (Humble)
-CUDA+CUDNN+TensorRT(8)
-OpenCV
-PCL
+CUDA+CUDNN+TensorRT8
+OpenCV 4.5.4
+PCL 1.12.1
 Livox_SDK(1)
 ```
 如果您使用的是g++-12, 希望使用clang和clangd, 请确保安装了以下包:
