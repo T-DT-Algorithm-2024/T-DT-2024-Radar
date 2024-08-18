@@ -40,6 +40,8 @@
 - 2.不依赖相机和雷达之间的帧间匹配，脱离时间上的限制
 - 3.直接使用直角坐标系的信息，更加直观
 - 4.三层神经网络实现了更好的鲁棒性和可修复性，极大地降低了模型训练和数据集整理的难度和时间。
+- 5.低耦合，易于维护和扩展
+- 6.雷达全自动配准，节约3分钟部署时间
 ## 硬件条件
 
 - 激光雷达 Livox Avia
@@ -80,6 +82,8 @@
 - ICP配准
 - KdTree离群点检测
 - 欧几里得聚类
+- 飞镖检测
+- 空中机器人检测
 
 ### 传感器融合
 
@@ -169,6 +173,8 @@ ros2 launch livox_ros2_driver livox_lidar_launch.py #启动Livox驱动
 [百度网盘](https://pan.baidu.com/s/1ogRvs3v1OMCVUbAlUsOGQA?pwd=52rm)
 
 修改tdt_vision/launch对应的launch文件中的rosbag路径即可进程内播放对应的rosbag
+## 可视化
+Launch文件已集成foxglove-bridge,启动后直接打开foxglove-studio即可查看
 ## TODO
 多相机/雷达从当前逻辑(结构)上可以实现，但是并没有进行对应ros2接口的适配，后续更新
 # 联系方式
