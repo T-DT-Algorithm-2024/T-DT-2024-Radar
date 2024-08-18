@@ -4,8 +4,8 @@
 
 > 2024年东北大学T-DT实验室 RoboMaster超级对抗赛 雷达代码
 
-<a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/License-Secrecy-yellow"></a>
-<a href="https://neutdt.cn"><img alt="License" src="https://img.shields.io/badge/Home%20Page-T--DT-green"></a>
+<a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/License-MIT-yellow"></a>
+<a href="https://neutdt.cn"><img alt="Home Page" src="https://img.shields.io/badge/Home%20Page-T--DT-green"></a>
 
 <p align="center">
   <!-- <img src=".github/NEU.jpg" width="300"/> -->
@@ -13,8 +13,7 @@
   <img src=".github/T-DT.jpg" width="300"/>
 </p>
 
-
-</dev>
+</div>
 
 <br>
 
@@ -26,26 +25,40 @@
 
 # 版本和发布记录
 
-### 0.0.1 当前版本
+### 当前版本
 
-v0.0.1beta
-初始化仓库，加入基础内容，初版README
+**v0.0.1beta**
+- 初始化仓库，加入基础内容，初版README
 
 # 项目介绍
-通过激光雷达目标检测和单目相机目标检测，进行传感器后融合，实现了传感器之间的完全解耦合，完全避免了联合标定带来的误差，同时开发难度不随传感器数量增加而增加。~~(如果和你关系好的队伍不幸被淘汰了,可以把相机/雷达直接借过来用。)~~
 
-**如果你没有激光雷达，也可以直接使用本项目的单目相机方案 (在RM2023的0.6m误差规则下取得了最高91%的准确率,荣获2023年雷达MVP)**
+本项目通过激光雷达和单目相机的目标检测，进行传感器后融合，实现了传感器之间的完全解耦合，避免了联合标定带来的误差，同时开发难度不随传感器数量增加而增加。~~(如果和你关系好的队伍不幸被淘汰了，可以把相机/雷达直接借过来用。)~~
+
+**如果你没有激光雷达，也可以直接使用本项目的单目相机方案 (在RM2023的0.6m误差规则下取得了最高91%的准确率，荣获2023年雷达MVP)**
+## 项目优势
+- 1.即插即用，不依赖联合标定，脱离空间(机械结构)上的限制
+- 2.不依赖相机和雷达之间的帧间匹配，脱离时间上的限制
+- 3.直接使用直角坐标系的信息，更加直观
+- 4.三层神经网络实现了更好的鲁棒性和可修复性，极大地降低了模型训练和数据集整理的难度和时间。
 ## 硬件条件
+
 - 激光雷达 Livox Avia
 - 单目相机 Hikvision CH-120-10UC
 - CPU i7-12700KF
 - GPU RTX A4000 * 2
+
 ## 项目结构说明
+
 本项目提供了除串口、相机驱动、模型训练外雷达站的全部功能
 
-### 单目相机:五点标定(键盘微调), 透视变换方案
+### 单目相机
 
-### 识别:三层神经网络结构
+- 五点标定(键盘微调)
+- 透视变换方案
+
+### 识别
+
+- 三层神经网络结构
 
 | 名称 | 大小 | 用途 |
 | --- | --- | --- |
@@ -53,25 +66,29 @@ v0.0.1beta
 | yolov5s | 192x192 | 识别装甲板 |
 | resnet18 | 224x224 | 数字分类 |
 
-三层网络实现了更好的鲁棒性和可修复性，极大地降低了模型训练和数据集整理的难度和时间，
+建议根据相机分辨率调整模型大小，以提高推理速度。
+- RTX A4000 实测50Hz
+- RTX 3050M (35W极致阉割版) 实测16Hz
 
-其中第二层和第三层网络使用多batch推理，速度提升很大
-
-RTX A4000 实测50Hz
-
-RTX 3050M(35W极致阉割版) 实测16Hz
-
-由于使用了时间同步，所以只要推理速度>10Hz 也能正常使用
+由于使用了时间同步，只要推理速度>10Hz 也能正常使用。
 
 **模型存储在 model/ONNX 文件夹下**
+- 提供了onnx自动转换trt，如果没有检测到TensorRT编译的模型，会自动编译对应模型。
 
-提供了onnx自动转换trt，如果没有检测到TensorRT编译的模型，会自动编译对应模型
 ### 激光雷达
-ICP配准+KdTree离群点检测+欧几里得聚类
+
+- ICP配准
+- KdTree离群点检测
+- 欧几里得聚类
 
 ### 传感器融合
-使用卡尔曼滤波器对激光雷达识别到的目标进行跟踪，同时将相机识别结果向卡尔曼轨迹进行匹配，最后融合卡尔曼滤波器结果和相机识别结果，输出最终结果
-## 1. 模块介绍
+
+- 使用卡尔曼滤波器对激光雷达识别到的目标进行跟踪，同时将相机识别结果向卡尔曼轨迹进行匹配，最后融合卡尔曼滤波器结果和相机识别结果，输出最终结果。
+
+### 工具包
+- 进程内播放rosbag (ros2 jazzy已支持)
+
+## 模块介绍
 
 | 模块 | 说明 |
 | --- | --- |
@@ -83,7 +100,7 @@ ICP配准+KdTree离群点检测+欧几里得聚类
 | [`fusion`](./src/fusion/) | 传感器后融合模块 |
 | [`utils`](./src/工具包/) | 视觉模块 |
 
-## 2. 依赖
+## 依赖
 
 ```bash
 Ubuntu 22.04
@@ -99,9 +116,9 @@ Livox_SDK(1)
 sudo apt-get install libstdc++12-dev
 ```
 
-## 3. 进程间通信消息名称及用途
+## 进程间通信消息名称及用途
 
-### 3.1 ROS2 通信 （注意QoS）
+### 1. ROS2 通信 （注意QoS）
 
 #### 激光雷达
 
@@ -131,7 +148,7 @@ sudo apt-get install libstdc++12-dev
 | kalman_detect | topic<vision_interface::msg::DetectResult> | 卡尔曼节点输出 |
 | match_info | topic<vision_interface::msg::MatchInfo > | 当前比赛的实时信息 |
 | Radar2Sentry | topic<vision_interface::msg::Radar2Sentry> | 发送给串口的最终结果 |
-## 4. 工具
+## 工具
 
 可用VSCode使用Ctrl+Shift+B使用常见编译任务(需安装工作区推荐插件)，例如下方指令为编译单个包指令，已集成进tasks.json
 
@@ -140,7 +157,7 @@ colcon build --packages-select 功能包名称
 ```
 
 已实现VSCode下使用gdbserver或lldb-server进行程序调试的配置文件，按下F5即可使用，需安装相应插件
-## 5. 测试
+## 测试
     
 ```bash
 ros2 launch tdt_vision run_rosbag.launch.py #通过rosbag启动相机

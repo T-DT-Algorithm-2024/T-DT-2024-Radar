@@ -71,7 +71,7 @@ Detect::Detect(const rclcpp::NodeOptions& node_options)
     if(!file1.good()) {
         system("python src/utils/onnx2trt.py "
         "--onnx=model/ONNX/RM2024.onnx "
-        "--saveEngine=model/TensorRT/yolo_new.engine "
+        "--saveEngine=model/TensorRT/yolo.engine "
         "--minBatch 1 "
         "--optBatch 1 "
         "--maxBatch 2 "
