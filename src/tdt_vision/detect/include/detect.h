@@ -8,7 +8,7 @@
 #include "yolos.hpp"
 #include "infer.hpp"
 #include "classify.hpp"
-#include "cv_bridge/cv_bridge.h"
+#include "cv_bridge/cv_bridge.hpp"
 #include "opencv2/opencv.hpp"
 #include "geometry_msgs/msg/point.hpp"
 #include "geometry_msgs/msg/vector3.hpp"

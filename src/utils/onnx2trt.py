@@ -2,7 +2,7 @@ import argparse
 import subprocess
 
 def run_trtexec(onnx_path, save_engine_path, min_batch, opt_batch, max_batch, input_name,shape):
-    command = ["/usr/src/tensorrt/bin/trtexec",
+    command = ["/home/shenxw/lib/TensorRT-8.6.1.6/bin/trtexec",
                "--onnx=" + onnx_path,
                "--saveEngine=" + save_engine_path,
                "--minShapes=" + input_name + ":" + min_batch + "x3x" +shape,

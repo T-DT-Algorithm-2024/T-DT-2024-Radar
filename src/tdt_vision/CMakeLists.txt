@@ -6,6 +6,9 @@ set(CMAKE_CXX_STANDARD 20)
 
 # openvino tensort用，编译动态库时，符号表对只读文件重映射，需要添加此指令
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+include_directories(/home/shenxw/lib/TensorRT-8.6.1.6/include/)
+link_directories(/home/shenxw/lib/TensorRT-8.6.1.6/lib/)
+set(nvinfer_LIBRARY "/home/shenxw/lib/TensorRT-8.6.1.6/lib/libnvinfer.so")
 
 # 包含头文件
 include_directories(  

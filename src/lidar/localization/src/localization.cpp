@@ -13,6 +13,9 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 #include <rclcpp_components/register_node_macro.hpp>
+#include <pcl/registration/icp.h>
+#include <pcl/registration/registration.h>
+#include <boost/shared_ptr.hpp>
 
 namespace tdt_radar {
     struct Grid {

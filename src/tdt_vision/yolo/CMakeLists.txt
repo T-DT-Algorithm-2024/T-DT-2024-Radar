@@ -8,8 +8,9 @@ option(CUDA_USE_STATIC_CUDA_RUNTIME ON)
 set(CMAKE_CXX_STANDARD 17)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
 # TODO(Call for PR): make cmake compatible with Windows
+include_directories(/home/shenxw/lib/TensorRT-8.6.1.6/include/)
+link_directories(/home/shenxw/lib/TensorRT-8.6.1.6/lib/)
 find_package(CUDA)
-include(../cmake/modules/libnvinferConfig.cmake)
 
 # include and link dirs of cuda and tensorrt, you need adapt them if yours are different
 # cuda

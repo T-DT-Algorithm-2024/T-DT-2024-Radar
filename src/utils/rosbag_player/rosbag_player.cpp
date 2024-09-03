@@ -7,7 +7,7 @@
 #include <rosbag2_storage/serialized_bag_message.hpp>
 #include <rclcpp_components/register_node_macro.hpp>
 #include <opencv2/opencv.hpp>
-#include <cv_bridge/cv_bridge.h>
+#include <cv_bridge/cv_bridge.hpp>
 #include <sensor_msgs/msg/image.hpp>
 #include <vision_interface/msg/match_info.hpp>
 #include <thread>

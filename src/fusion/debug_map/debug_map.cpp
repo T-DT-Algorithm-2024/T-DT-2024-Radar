@@ -8,7 +8,7 @@
 #include <vision_interface/msg/radar_warn.hpp>
 #include <vision_interface/msg/match_info.hpp>
 #include <sensor_msgs/msg/image.hpp>
-#include <cv_bridge/cv_bridge.h>
+#include <cv_bridge/cv_bridge.hpp>
 #include <fstream>
 namespace tdt_radar {
     class DebugMap : public rclcpp::Node {
