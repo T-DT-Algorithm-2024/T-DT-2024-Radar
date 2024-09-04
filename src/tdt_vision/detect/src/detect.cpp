@@ -69,7 +69,7 @@ Detect::Detect(const rclcpp::NodeOptions& node_options)
 
     std::ifstream file1(yolo_path.c_str());
     if(!file1.good()) {
-        system("python src/utils/onnx2trt.py "
+        system("python3 src/utils/onnx2trt.py "
         "--onnx=model/ONNX/RM2024.onnx "
         "--saveEngine=model/TensorRT/yolo.engine "
         "--minBatch 1 "
@@ -83,7 +83,7 @@ Detect::Detect(const rclcpp::NodeOptions& node_options)
     }
     std::ifstream file2(armor_path.c_str());
     if(!file2.good()) {
-        system("python utils/onnx2trt.py "
+        system("python3 src/utils/onnx2trt.py "
         "--onnx=model/ONNX/armor_yolo.onnx "
         "--saveEngine=model/TensorRT/armor_yolo.engine "
         "--minBatch 1 "
@@ -97,7 +97,7 @@ Detect::Detect(const rclcpp::NodeOptions& node_options)
     }
     std::ifstream file3(classify_path.c_str());
     if(!file3.good()) {
-        system("python utils/onnx2trt.py "
+        system("python3 src/utils/onnx2trt.py "
         "--onnx=model/ONNX/classify.onnx "
         "--saveEngine=model/TensorRT/classify.engine "
         "--minBatch 1 "
