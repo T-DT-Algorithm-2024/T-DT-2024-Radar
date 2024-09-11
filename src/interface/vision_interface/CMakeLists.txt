@@ -12,17 +12,9 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 # find dependencies
-find_package(ament_cmake REQUIRED)
-# find_package(rclcpp REQUIRED)
-find_package(builtin_interfaces REQUIRED)
+find_package(ament_cmake_auto REQUIRED)
 
-# find_package(std_msgs REQUIRED)
-find_package(geometry_msgs REQUIRED)
-find_package(sensor_msgs REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
-find_package(std_msgs REQUIRED)
-
-
+ament_auto_find_build_dependencies()
 
 file(GLOB_RECURSE 
     MSG_FILES 
@@ -32,23 +24,17 @@ file(GLOB_RECURSE
     msg/*.msg
 )
 
-
 rosidl_generate_interfaces(${PROJECT_NAME}
 
   ${MSG_FILES}
   ${ACTION_FILES}
   ${SRV_FILES}
 
-  
    DEPENDENCIES 
-   geometry_msgs
-   builtin_interfaces
-   std_msgs
-   sensor_msgs
+   ${${PROJECT_NAME}_FOUND_BUILD_DEPENDS}
 
   ADD_LINTER_TESTS
  )
 ament_export_dependencies(rosidl_default_runtime)
 
-
-ament_package()
+ament_auto_package()
