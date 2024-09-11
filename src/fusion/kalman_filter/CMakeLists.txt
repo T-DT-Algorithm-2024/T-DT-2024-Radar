@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
 project(kalman_filter)
-cmake_minimum_required(VERSION 3.8)
-project(kalman_filter)
 
 find_package (ament_cmake_auto REQUIRED) 
 ament_auto_find_build_dependencies ()
