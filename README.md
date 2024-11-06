@@ -103,7 +103,7 @@
 - 使用卡尔曼滤波器对激光雷达识别到的目标进行跟踪，同时将相机识别结果向卡尔曼轨迹进行匹配，最后融合卡尔曼滤波器结果和相机识别结果，输出最终结果。
 
 ### 工具包
-- 进程内播放rosbag (ros2 jazzy已支持)
+- 进程内播放rosbag (后续替换为ros2 jazzy自带的rosbag2)
 
 ## 模块介绍
 
@@ -120,17 +120,12 @@
 ## 依赖
 
 ```bash
-Ubuntu 22.04
-ROS2 (Humble)
-CUDA+CUDNN+TensorRT8
-OpenCV 4.5.4
-PCL 1.12.1
+Ubuntu 24.04
+ROS2 (Jazzy)
+CUDA+CUDNN+TensorRT(≥10)
+OpenCV
+PCL
 Livox_SDK(1)
-```
-如果您使用的是g++-12, 希望使用clang和clangd, 请确保安装了以下包:
-
-```bash
-sudo apt-get install libstdc++12-dev
 ```
 
 ## 进程间通信消息名称及用途
