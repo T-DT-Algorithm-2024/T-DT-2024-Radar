@@ -25,14 +25,17 @@
 
 # 版本和发布记录
 
-### 当前版本
-
 **v0.0.1beta**
 - 初始化仓库，加入基础内容，初版README
 
 **v1.0**
 - 加入开源技术报告链接
-
+  
+**v1.1**
+- TensorRT 10 API 支持
+- Ubuntu 24.04 支持 (Jazzy分支)
+- 删除rosbag_player包，改用 [rosbag2](https://github.com/ros2/rosbag2/tree/jazzy?tab=readme-ov-file#using-with-composition) 进程内通信 (Jazzy分支)
+  
 # 项目介绍
 东北大学RM2024雷达技术报告 [https://bbs.robomaster.com/wiki/260375/27115](https://bbs.robomaster.com/wiki/260375/27115)
 
