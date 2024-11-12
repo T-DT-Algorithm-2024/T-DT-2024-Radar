@@ -125,7 +125,7 @@
 ```bash
 Ubuntu 22.04
 ROS2 (Humble)
-CUDA+CUDNN+TensorRT8
+CUDA+CUDNN+TensorRT(≥8)
 OpenCV 4.5.4
 PCL 1.12.1
 Livox_SDK(1)
